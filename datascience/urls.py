@@ -16,15 +16,26 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
+from rest_framework.schemas import get_schema_view
 from markup import views
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
+router.register(r'api/v1/article', views.ArticleViewSet, 'article')
+router.register(r'api/v1/entity', views.EntityViewSet, 'entity')
+
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('markup/', include('markup.urls')),
+    path('account/register', views.UserCreate.as_view()),
     path('admin/', admin.site.urls),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('openapi',
+         get_schema_view(
+            title="Your Project",
+            description="API for Markup",
+            version="1.0.0"
+         ),
+         name='openapi-schema')
 ]

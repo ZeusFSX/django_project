@@ -8,13 +8,14 @@ class Article(models.Model):
         ("neutral", "Neutral sentimental"),
         ("positive", "Positive sentimental")
     ]
+    title = models.CharField(max_length=300, default="")
     text = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
     tonality = models.CharField(max_length=8, choices=TONALITY_CHOICES)
     language = models.CharField(max_length=7, choices=LANGUAGES)
 
     def __str__(self):
-        return self.text[:100]
+        return self.title
 
     class Meta:
         ordering = ['-date']
