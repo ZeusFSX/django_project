@@ -20,5 +20,23 @@ class Article(models.Model):
         ordering = ['-date']
 
 
-# class Entity(models.Model):
-#     article = models.ForeignKey(Article, on_delete=models.CASCADE)
+class Entity(models.Model):
+    TOKENS_CHOICES = [
+        ("PER", "Name of person"),
+        ("LOC", "Locations"),
+        ("ORG", "Organizations"),
+        ("DATE", "Date"),
+        ("NAT", "Nationality"),
+        ("TITLE", "Title or name of position")
+    ]
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    offset = models.IntegerField()
+    length = models.IntegerField()
+    text = models.TextField()
+    type_entity = models.CharField(max_length=10, choices=TOKENS_CHOICES)
+
+    def __str__(self):
+        return self.text
+
+
+

@@ -1,6 +1,7 @@
-from .models import Article
 from rest_framework import viewsets, permissions
-from .serializers import ArticleSerializer
+
+from .models import Article, Entity
+from .serializers import ArticleSerializer, EntitySerializers
 
 
 class ArticleViewSet(viewsets.ModelViewSet):
@@ -9,3 +10,11 @@ class ArticleViewSet(viewsets.ModelViewSet):
         permissions.AllowAny
     ]
     serializer_class = ArticleSerializer
+
+
+class EntityViewSet(viewsets.ModelViewSet):
+    queryset = Entity.objects.all()
+    permission_classes = [
+        permissions.AllowAny
+    ]
+    serializer_class = EntitySerializers
