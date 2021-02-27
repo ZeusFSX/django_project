@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import TemplateView
 from rest_framework import routers
 from rest_framework.schemas import get_schema_view
 from markup import views
@@ -22,8 +23,8 @@ from markup import views
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
-router.register(r'api/v1/article', views.ArticleViewSet, 'article')
-router.register(r'api/v1/entity', views.EntityViewSet, 'entity')
+router.register(r'article', views.ArticleViewSet, 'article')
+router.register(r'entity', views.EntityViewSet, 'entity')
 
 
 urlpatterns = [
@@ -33,9 +34,24 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('openapi',
          get_schema_view(
-            title="Your Project",
-            description="API for Markup",
+            title="Markup",
+            description="API for text Markup, "
+                        "the API can store marked data for Sentimental Analysis and Named Entity Recognition",
             version="1.0.0"
          ),
-         name='openapi-schema')
+         name='openapi-schema'),
+
+    path('redoc/',
+         TemplateView.as_view(
+                    template_name='redoc.html',
+                    extra_context={'schema_url': 'openapi-schema'}
+         ),
+         name='redoc'),
+
+    path('swagger-ui/',
+         TemplateView.as_view(
+            template_name='swagger-ui.html',
+            extra_context={'schema_url': 'openapi-schema'}
+         ),
+         name='swagger-ui'),
 ]

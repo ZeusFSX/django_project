@@ -30,7 +30,6 @@ class ArticleSerializer(serializers.ModelSerializer):
 
 
 class EntitySerializers(serializers.ModelSerializer):
-    article = serializers.SlugRelatedField(slug_field="title", read_only=True)
 
     class Meta:
         model = Entity
