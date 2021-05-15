@@ -5,7 +5,7 @@ urlpatterns = [
     path('webhook/', views.webhook),
     path('online/', views.users_online),
     path('', views.index, name='index'),
-    path('<str:room_name>/', views.room, name='room'),
+    path('<str:article_id>/', views.room, name='article_id'),
 ]
 
 from markup.models import ConnectedUsers

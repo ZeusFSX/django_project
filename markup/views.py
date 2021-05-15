@@ -62,10 +62,17 @@ def index(request):
     return render(request, 'index.html')
 
 
-def room(request, room_name):
-    return render(request, 'room.html', {
-        'room_name': room_name
-    })
+def room(request, article_id):
+    # Send article by id to user
+    news = Article.objects.get(id=article_id)
+    if news:
+        return render(request, 'room.html', {
+            'article_id': article_id,
+            'title': news.title,
+            'text': news.text
+        })
+    else:
+        return HttpResponse('Wrong article id')
 
 
 def webhook(request):
