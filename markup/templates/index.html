@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="utf-8"/>
-    <title>Chat Rooms</title>
+    <title>Markup</title>
 </head>
 <body>
     What article would you like to markup. Please enter id of news?<br>
@@ -20,7 +20,7 @@
 
         document.querySelector('#room-name-submit').onclick = function(e) {
             var article_id = document.querySelector('#room-name-input').value;
-            window.location.pathname = '/chat/' + article_id + '/';
+            window.location.pathname = '/markup/' + article_id + '/';
         };
     </script>
 </body>

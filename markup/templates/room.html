@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8"/>
-    <title>Chat Room</title>
+    <title>Markup</title>
 </head>
 <body>
     <h1>{{title}}</h1><br>
@@ -28,7 +28,7 @@
         const chatSocket = new WebSocket(
             'ws://'
             + window.location.host
-            + '/ws/chat/'
+            + '/ws/markup/'
             + article_id
             + '/'
         );
@@ -52,7 +52,7 @@
         document.querySelector('#submit').onclick = function(e) {
             const entityInputDom = document.querySelector('#entity');
             const offsetInputDom = document.querySelector('#offset');
-            const lengthInputDom = document.querySelector('#offset');
+            const lengthInputDom = document.querySelector('#length');
             const tokenInputDom = document.querySelector('#token');
             chatSocket.send(JSON.stringify({
                 'article': article_id,
