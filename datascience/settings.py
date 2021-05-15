@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'markup.apps.MarkupConfig',
+    'channels'
 ]
 
 MIDDLEWARE = [
@@ -57,6 +58,14 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'datascience.urls'
+
+WSGI_APPLICATION = 'datascience.wsgi.application'
+ASGI_APPLICATION = "datascience.asgi.application"
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
 
 TEMPLATES = [
     {
@@ -74,7 +83,6 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'datascience.wsgi.application'
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
