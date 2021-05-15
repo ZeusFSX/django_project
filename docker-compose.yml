@@ -17,5 +17,7 @@ services:
     image: redis:alpine
     command: [ "redis-server", "--appendonly", "no" ]
     container_name: redis
+    ports:
+      - "6379:6379"
     volumes:
       - ./data/redis/data:/data
