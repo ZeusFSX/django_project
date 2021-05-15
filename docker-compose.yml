@@ -13,7 +13,9 @@ services:
     volumes:
       - ./postrgres:/var/lib/postgresql/data
 
-#  api:
-#    build: .
-#    restart: always
-#    command:
+  redis:
+    image: redis:alpine
+    command: [ "redis-server", "--appendonly", "no" ]
+    container_name: redis
+    volumes:
+      - ./data/redis/data:/data
