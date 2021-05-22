@@ -9,19 +9,20 @@ from channels.layers import get_channel_layer
 
 class CallbackTask(Task):
     def on_success(self, retval, task_id, *args, **kwargs):
-        print("success")
+
         channel_layer = get_channel_layer()
-        if not channel_layer.groups:
+        if not channel_layer:
             print("Not found")
             return
 
         async_to_sync(channel_layer.group_send)(
-            list(channel_layer.groups.keys())[0],
+            "finished_tasks",
             {
                 'type': 'task_message',
                 'message': f'Finished Task {task_id}.  Result is {retval}, Args is {args} Current time is {datetime.datetime.now()}'
             }
         )
+        print("success")
 
 
 @shared_task(name="send_email_tasks")

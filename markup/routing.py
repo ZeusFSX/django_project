@@ -1,8 +1,8 @@
-from django.urls import re_path
+from django.urls import path, re_path
 
 from . import consumers
 
 websocket_urlpatterns = [
-    re_path(r'ws/markup/(?P<article_id>\w+)/$', consumers.ChatConsumer.as_asgi()),
-    re_path(r'ws/markup/tasks/', consumers.TasksConsumer.as_asgi()),
+    path('ws/markup/tasks/', consumers.TasksConsumer.as_asgi()),
+    re_path(r'ws/markup/(?P<article_id>\d+)/$', consumers.ChatConsumer.as_asgi()),
 ]

@@ -59,10 +59,14 @@ ROOT_URLCONF = 'datascience.urls'
 
 WSGI_APPLICATION = 'datascience.wsgi.application'
 ASGI_APPLICATION = "datascience.asgi.application"
+
 CHANNEL_LAYERS = {
     "default": {
-        "BACKEND": "channels.layers.InMemoryChannelLayer"
-    }
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("localhost", 6379)],
+        },
+    },
 }
 
 TEMPLATES = [
@@ -104,16 +108,6 @@ DATABASES = {
         'HOST': '0.0.0.0',
         'PORT': '5432',
     }
-}
-
-CACHES = {
-    'default': {
-        'BACKEND': 'redis_cache.RedisCache',
-        'LOCATION': 'redis://127.0.0.1:6379/',  # remote access: /etc/redis/redis.conf !!!
-        'OPTIONS': {
-            'DB': 1,
-        }
-    },
 }
 
 EMAIL_HOST = "smtp.gmail.com"

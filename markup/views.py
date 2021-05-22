@@ -93,5 +93,5 @@ def send_email_task(request):
 
 def run_long_task(request):
     ml_task_id = long_work.apply_async(queue='long_task', args=(5,))
-    return HttpResponse(f'The jobs are %s and  {ml_task_id}')
+    return HttpResponse(f'The job id are: {ml_task_id}')
 
