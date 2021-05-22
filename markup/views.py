@@ -13,7 +13,7 @@ from django.shortcuts import render
 from markup.models import ConnectedUsers
 
 from django.http import HttpResponse
-from markup.tasks import add, mul
+from markup.tasks import send_email, long_work
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -82,7 +82,12 @@ def users_online(request):
         })
 
 
-def run_task(request):
-    sum_task_id = add.apply_async(queue='email', args=(5, 5))
-    ml_task_id = mul.apply_async(queue='long_task', args=(5, 5))
-    return HttpResponse('The jobs are %s and %s' % (sum_task_id, ml_task_id))
+def send_email_task(request):
+    email_task_id = send_email.apply_async(queue='email', args=(['some_email@gmail.com'],))
+    return HttpResponse(f'The jobs for sending email in progress. Wait for finish. Task id {email_task_id}')
+
+
+def run_long_task(request):
+    ml_task_id = long_work.apply_async(queue='long_task', args=(5,))
+    return HttpResponse(f'The jobs are %s and  {ml_task_id}')
+

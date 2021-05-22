@@ -53,3 +53,22 @@ class ChatConsumer(WebsocketConsumer):
         print(entity_data)
         # Send message to WebSocket
         self.send(text_data=json.dumps(entity_data))
+
+
+class TasksConsumer(WebsocketConsumer):
+    def connect(self):
+        self.group_name = "finished_tasks"
+
+        # Join room group
+        async_to_sync(self.channel_layer.group_add)(
+            self.group_name,
+            self.channel_name
+        )
+        self.accept()
+
+    def disconnect(self, close_code):
+        # Leave room group
+        async_to_sync(self.channel_layer.group_discard)(
+            self.group_name,
+            self.channel_name
+        )
