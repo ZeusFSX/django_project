@@ -60,6 +60,10 @@ def index(request):
     return render(request, 'index.html')
 
 
+def list_finished_tasks(request):
+    return render(request, 'list.html')
+
+
 def room(request, article_id):
     # Send article by id to user
     news = Article.objects.get(id=article_id)
