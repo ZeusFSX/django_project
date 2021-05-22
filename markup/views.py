@@ -83,6 +83,6 @@ def users_online(request):
 
 
 def run_task(request):
-    sum_task_id = add.apply_async(queue='low_priority', args=(5, 5))
-    ml_task_id = mul.apply_async(queue='low_priority', args=(5, 5))
+    sum_task_id = add.apply_async(queue='email', args=(5, 5))
+    ml_task_id = mul.apply_async(queue='long_task', args=(5, 5))
     return HttpResponse('The jobs are %s and %s' % (sum_task_id, ml_task_id))

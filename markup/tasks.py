@@ -1,5 +1,4 @@
-import random
-
+from time import sleep
 from celery import shared_task, Task
 
 
@@ -14,12 +13,12 @@ class CallbackTask(Task):
         pass
 
 
-@shared_task(name="sum_two_numbers", base=CallbackTask)
-def add(x, y):
-    return x + y
+@shared_task(name="send_email_tasks", base=CallbackTask)
+def send_email(emails: list):
+    return emails
 
 
-@shared_task(name="multiply_two_numbers", base=CallbackTask)
-def mul(x, y):
-    total = x * y
-    return total
+@shared_task(name="some_long_work", base=CallbackTask)
+def long_work(time):
+    sleep(time)
+
