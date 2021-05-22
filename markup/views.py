@@ -12,6 +12,9 @@ from django.shortcuts import render
 
 from markup.models import ConnectedUsers
 
+from django.http import HttpResponse
+from markup.tasks import add, mul
+
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -77,3 +80,9 @@ def users_online(request):
         return render(request, 'online.html', {
             'connected_users': connected_users
         })
+
+
+def run_task(request):
+    sum_task_id = add.apply_async(queue='low_priority', args=(5, 5))
+    ml_task_id = mul.apply_async(queue='low_priority', args=(5, 5))
+    return HttpResponse('The jobs are %s and %s' % (sum_task_id, ml_task_id))
